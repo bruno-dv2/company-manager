@@ -21,7 +21,7 @@ model Usuario {
   empresas  Empresa[]
   criadoEm  DateTime  @default(now())
   atualizadoEm DateTime @updatedAt
-
+  refreshTokens RefreshToken[]
   @@map("usuarios")
 }
 
@@ -54,4 +54,15 @@ model Local {
   atualizadoEm DateTime @updatedAt
 
   @@map("locais")
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  usuarioId Int
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  criadoEm  DateTime @default(now())
+
+  @@map("refresh_tokens")
 }
