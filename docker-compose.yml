@@ -1,0 +1,52 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+  
+  backend:
+    build: ./backend
+    ports:
+      - "3002:3001"
+    environment:
+      - DATABASE_URL=postgresql://postgres:1234@postgres:5432/postgres?schema=public
+      - JWT_SECRET=dajbcdo@18djjutencdcdpoyvs520s
+      - PORT=3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: always
+  
+  frontend:
+    build: ./frontend
+    ports:
+      - "3003:5173"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3002
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
