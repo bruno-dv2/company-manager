@@ -1,21 +1,15 @@
 services:
-  # Serviço PostgreSQL
-  - type: pserv
-    name: hublocal-postgres
+  # Serviço Web único (combinando frontend e backend)
+  - type: web
+    name: hublocal-app
     env: docker
-    plan: standard
-    dockerfilePath: ./Dockerfile.postgres
-    disk:
-      name: postgres-data
-      mountPath: /var/lib/postgresql/data
-      sizeGB: 10
+    dockerfilePath: ./Dockerfile
+    plan: free
     envVars:
-      - key: POSTGRES_PASSWORD
+      - key: JWT_SECRET
         sync: false
-      - key: POSTGRES_USER
-        value: postgres
-      - key: POSTGRES_DB
-        value: postgres
+      - key: PORT
+        value: 10000
 
   # Serviço Backend
   - type: web
