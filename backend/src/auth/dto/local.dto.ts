@@ -1,11 +1,12 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsCEP } from '../../validators/custom-validator';
 
 export class CriarLocalDto {
   @IsString()
   @IsNotEmpty({ message: 'O nome é obrigatório' })
   nome: string;
 
-  @IsString()
+  @IsCEP({ message: 'CEP inválido' })
   @IsNotEmpty({ message: 'O CEP é obrigatório' })
   cep: string;
 

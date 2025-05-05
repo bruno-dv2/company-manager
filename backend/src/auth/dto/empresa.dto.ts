@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsCNPJ } from '../../validators/custom-validator';
 
 export class CriarEmpresaDto {
   @IsString()
@@ -9,7 +10,7 @@ export class CriarEmpresaDto {
   @IsOptional()
   website?: string;
 
-  @IsString()
+  @IsCNPJ({ message: 'CNPJ inválido' })
   @IsNotEmpty({ message: 'O CNPJ é obrigatório' })
   cnpj: string;
 }
