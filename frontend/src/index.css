@@ -1,13 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #333333;
 }
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+  --primary-color: #0096FF;
+  --primary-dark: #007cd9;
+  --secondary-color: #00D084;
+  --secondary-dark: #00b873;
+  --text-color: #333333;
+  --light-text: #666666;
+  --border-radius: 8px;
+}
+
+/* Estilos personalizados para os toasts */
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  background-color: #00D084 !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  background-color: #FF0000 !important;
+}
+
+.Toastify__toast-body {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.Toastify__progress-bar {
+  height: 4px;
+}
+
+.Toastify__close-button {
+  opacity: 0.8;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
 }
