@@ -4,7 +4,7 @@ services:
     name: hublocal-postgres
     env: docker
     plan: standard
-    dockerfilePath: ./Dockerfile.postgres  # Se você tiver um Dockerfile específico para o PostgreSQL
+    dockerfilePath: ./Dockerfile.postgres
     disk:
       name: postgres-data
       mountPath: /var/lib/postgresql/data
@@ -23,8 +23,6 @@ services:
     env: docker
     dockerfilePath: ./backend/Dockerfile
     plan: standard
-    buildCommand: docker build -t hublocal-backend ./backend
-    startCommand: docker run -p 3001:3001 hublocal-backend
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
@@ -43,8 +41,6 @@ services:
     env: docker
     dockerfilePath: ./frontend/Dockerfile
     plan: standard
-    buildCommand: docker build -t hublocal-frontend ./frontend
-    startCommand: docker run -p 5173:5173 hublocal-frontend
     envVars:
       - key: REACT_APP_API_URL
         value: /api
@@ -53,9 +49,7 @@ services:
   - type: web
     name: hublocal-nginx
     env: docker
-    dockerfilePath: ./Dockerfile.nginx  # Crie um Dockerfile específico para o Nginx
+    dockerfilePath: ./Dockerfile.nginx
     plan: standard
-    buildCommand: docker build -t hublocal-nginx -f Dockerfile.nginx .
-    startCommand: docker run -p 8080:80 hublocal-nginx
     domains:
-      - hublocal.onrender.com  # Você receberá um domínio padrão do Render
+      - hublocal.onrender.com
