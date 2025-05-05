@@ -14,7 +14,7 @@ import { Request as ExpressRequest } from 'express';
 import { EmpresasService } from './empresas.service';
 import { CriarEmpresaDto, AtualizarEmpresaDto } from '../auth/dto/empresa.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { usuario as Usuario } from '@prisma/client';
+import { Usuario } from '@prisma/client';
 
 interface RequestWithUser extends ExpressRequest {
   user: Usuario;
