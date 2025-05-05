@@ -14,7 +14,7 @@ import { Request as ExpressRequest } from 'express';
 import { LocaisService } from './locais.service';
 import { CriarLocalDto, AtualizarLocalDto } from '../auth/dto/local.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { Usuario } from '@prisma/client';
+import { usuario as Usuario } from '@prisma/client';
 
 interface RequestWithUser extends ExpressRequest {
   user: Usuario;
