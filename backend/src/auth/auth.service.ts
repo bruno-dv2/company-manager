@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { CriarUsuarioDto, LoginDto } from '../auth/dto/auth.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -35,11 +36,12 @@ export class AuthService {
     });
 
     const token = this.gerarToken(usuario.id, usuario.email);
+    const refreshToken = await this.gerarRefreshToken(usuario.id);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { senha, ...usuarioSemSenha } = usuario;
 
-    return { usuario: usuarioSemSenha, token };
+    return { usuario: usuarioSemSenha, token, refreshToken };
   }
 
   async login(dto: LoginDto) {
@@ -58,15 +60,62 @@ export class AuthService {
     }
 
     const token = this.gerarToken(usuario.id, usuario.email);
+    const refreshToken = await this.gerarRefreshToken(usuario.id);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { senha, ...usuarioSemSenha } = usuario;
 
-    return { usuario: usuarioSemSenha, token };
+    return { usuario: usuarioSemSenha, token, refreshToken };
   }
 
   private gerarToken(usuarioId: number, email: string) {
     const payload = { sub: usuarioId, email };
     return this.jwtService.sign(payload);
+  }
+
+  async gerarRefreshToken(usuarioId: number) {
+    await this.prisma.refreshToken.deleteMany({
+      where: {
+        usuarioId,
+        expiresAt: {
+          lt: new Date(),
+        },
+      },
+    });
+
+    const refreshToken = uuidv4();
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7);
+
+    await this.prisma.refreshToken.create({
+      data: {
+        token: refreshToken,
+        usuarioId,
+        expiresAt,
+      },
+    });
+
+    return refreshToken;
+  }
+
+  async usarRefreshToken(refreshToken: string) {
+    const token = await this.prisma.refreshToken.findUnique({
+      where: { token: refreshToken },
+      include: { usuario: true },
+    });
+
+    if (!token || token.expiresAt < new Date()) {
+      throw new UnauthorizedException('Refresh token inválido ou expirado');
+    }
+
+    const accessToken = this.gerarToken(token.usuario.id, token.usuario.email);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { senha, ...usuarioSemSenha } = token.usuario;
+
+    return {
+      usuario: usuarioSemSenha,
+      token: accessToken,
+    };
   }
 }
