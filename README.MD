@@ -44,8 +44,30 @@ cd hublocal-teste
 ```
 
 ---
+## Opção Docker (Recomendado)
 
-## Backend
+## Requisitos
+
+- **Docker**  
+- **Docker Compose**
+
+### Executando com Docker
+Certifique-se de que o Docker e o Docker Compose estão instalados
+
+### Execute o comando
+
+```bash
+docker-compose up --build
+```
+
+## Acesse a aplicação
+
+Frontend: http://localhost:3003
+Backend API: http://localhost:3002
+
+## Instalação Manual
+
+### Backend
 
 ### 1. Acesse a pasta `backend`
 
@@ -143,6 +165,18 @@ frontend/
 │   ├── store/           # Configuração do Redux
 │   ├── styles/          # Estilos e temas
 │   └── utils/           # Funções utilitárias
+```
+
+### Docker
+
+```
+├── docker-compose.yml   # Configuração para orquestração dos containers
+├── backend/
+│   ├── Dockerfile       # Configuração de build do backend
+│   └── ...
+├── frontend/
+│   ├── Dockerfile       # Configuração de build do frontend
+│   └── ...
 ```
 
 ---
