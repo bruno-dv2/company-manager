@@ -1,71 +1,79 @@
 # Sistema de Gerenciamento de Empresas e Locais
 
-Este repositório contém um sistema **full-stack** para gerenciamento de empresas e seus respectivos locais, desenvolvido como parte de um teste técnico para a HubLocal.
-
----
+Este repositório contém um sistema **full-stack** para gerenciamento de empresas e seus respectivos locais.
 
 ## Tecnologias Utilizadas
 
 ### Backend
-
-- **NestJS** – Framework Node.js para construção de APIs eficientes e escaláveis  
-- **Prisma** – ORM para trabalhar com banco de dados  
-- **JWT** – Autenticação baseada em tokens  
-- **PostgreSQL** – Banco de dados relacional  
-- **Bcrypt** – Criptografia de senhas  
+- **NestJS** – Framework Node.js para construção de APIs
+- **Prisma** – ORM para trabalhar com banco de dados
+- **JWT** – Autenticação baseada em tokens
+- **PostgreSQL** – Banco de dados relacional
+- **Bcrypt** – Criptografia de senhas
 
 ### Frontend
-
-- **React** – Biblioteca para construção de interfaces  
-- **Redux Toolkit** – Gerenciamento de estado  
-- **Redux Persist** – Persistência de estado  
-- **React Router** – Navegação entre páginas  
-- **Material-UI** – Componentes visuais  
-- **React-Toastify** – Notificações toast  
-- **Axios** – Cliente HTTP para comunicação com a API  
-
----
+- **React** – Biblioteca para construção de interfaces
+- **Redux Toolkit** – Gerenciamento de estado
+- **Redux Persist** – Persistência de estado
+- **React Router** – Navegação entre páginas
+- **Material-UI** – Componentes visuais
+- **React-Toastify** – Notificações toast
+- **Axios** – Cliente HTTP para comunicação com a API
 
 ## Requisitos
 
-- **Node.js** v18 ou superior  
-- **npm** ou **yarn**  
-- **PostgreSQL**  
+- **Node.js** v18 ou superior
+- **npm** ou **yarn**
+- **PostgreSQL** (para execução manual)
+- **Docker** e **Docker Compose** (para execução com Docker)
+
+## Configuração do Ambiente
+
+Antes de iniciar, configure as variáveis de ambiente:
+
+1. Clone o repositório
+   ```bash
+   git clone https://github.com/seu-usuario/hublocal-teste.git
+   cd hublocal-teste
+    ```
 
 ---
 
-## Instalação e Configuração
+2. Copie os arquivos de exemplo e configure suas variáveis de ambiente
+    ```bash
+    cp .env.example .env
+    ```
 
-### Clone o repositório
-
-```bash
-git clone https://github.com/seu-usuario/hublocal-teste.git
-cd hublocal-teste
-```
+3. Edite o arquivo .env com suas credenciais
 
 ---
-## Opção Docker (Recomendado)
 
-## Requisitos
 
-- **Docker**  
-- **Docker Compose**
+## Opções de Execução
+
 
 ### Executando com Docker
-Certifique-se de que o Docker e o Docker Compose estão instalados
 
-### Execute o comando
+Ambiente de Desenvolvimento
 
-```bash
-docker-compose up --build
-```
+    ```bash
+    docker-compose --profile dev up --build
+    ```
 
-## Acesse a aplicação
+Ambiente de Produção
 
-Frontend: http://localhost:3003
-Backend API: http://localhost:3002
+    ```bash
+    docker-compose --profile prod up --build
+    ```
 
-## Instalação Manual
+### Após a execução, você pode acessar:
+
+Frontend (Desenvolvimento): http://localhost:3000
+Backend (Desenvolvimento): http://localhost:3001
+Aplicação (Produção): http://localhost:8080
+
+
+## Execução Manual (sem Docker)
 
 ### Backend
 
@@ -81,17 +89,7 @@ cd backend
 npm install
 ```
 
-### 3. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` com o seguinte conteúdo:
-
-```env
-DATABASE_URL="postgresql://usuario:senha@localhost:5432/hublocal_db"
-JWT_SECRET="seu_segredo_jwt"
-JWT_REFRESH_SECRET="seu_segredo_refresh"
-```
-
-### 4. Execute as migrações do banco de dados
+### 3. Execute as migrações do banco de dados
 
 ```bash
 npx prisma migrate dev
@@ -119,15 +117,7 @@ cd ../frontend
 npm install
 ```
 
-### 3. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` com o seguinte conteúdo:
-
-```env
-REACT_APP_API_URL=http://localhost:3001
-```
-
-### 4. Inicie a aplicação frontend
+### 3. Inicie a aplicação frontend
 
 ```bash
 npm start
@@ -156,7 +146,6 @@ backend/
 ```
 frontend/
 ├── public/              # Arquivos estáticos
-│   └── images/          # Imagens da aplicação
 ├── src/
 │   ├── components/      # Componentes React reutilizáveis
 │   ├── hooks/           # Hooks personalizados
@@ -165,18 +154,6 @@ frontend/
 │   ├── store/           # Configuração do Redux
 │   ├── styles/          # Estilos e temas
 │   └── utils/           # Funções utilitárias
-```
-
-### Docker
-
-```
-├── docker-compose.yml   # Configuração para orquestração dos containers
-├── backend/
-│   ├── Dockerfile       # Configuração de build do backend
-│   └── ...
-├── frontend/
-│   ├── Dockerfile       # Configuração de build do frontend
-│   └── ...
 ```
 
 ---
