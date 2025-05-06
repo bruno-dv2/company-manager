@@ -1,2 +1,14 @@
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
 .env.postgres
-backend/.env
+
+# Ignora os arquivos de ambiente dos subdiretórios para garantir segurança adicional
+*/**/.env
+*/**/.env.local
+*/**/.env.*.local
+
+# Excluir os arquivos de exemplo
+!.env.example
+!*/**/.env.example
