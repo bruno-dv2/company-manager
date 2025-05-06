@@ -1,16 +1,17 @@
 # Arquivos de ambiente
 .env
 .env.local
-.env.*.local
+.env.*
 .env.postgres
 
 # Ignora os arquivos de ambiente dos subdiretórios para garantir segurança adicional
 */**/.env
 */**/.env.local
-*/**/.env.*.local
+*/**/.env.*
 
 # Excluir os arquivos de exemplo
 !.env.example
-!*/**/.env.example*.env.*
-*.env.* >> .gitignore.env.example
+!*/**/.env.example
+
+# Node modules específicos
 backend/prisma/node_modules/
