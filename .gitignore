@@ -11,4 +11,6 @@
 
 # Excluir os arquivos de exemplo
 !.env.example
-!*/**/.env.example
+!*/**/.env.example*.env.*
+*.env.* >> .gitignore.env.example
+backend/prisma/node_modules/
