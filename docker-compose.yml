@@ -1,4 +1,5 @@
 version: '3.9'
+
 # Configurações comuns que podem ser reutilizadas
 x-common-backend: &common-backend
   networks:
@@ -34,7 +35,7 @@ services:
     ports:
       - "${POSTGRES_PORT}:5432"
 
-  # Backend - NestJS (Desenvolvimento)
+  # Backend - (Desenvolvimento)
   backend-dev:
     <<: *common-backend
     build:
@@ -52,7 +53,7 @@ services:
     profiles:
       - dev
 
-  # Backend - NestJS (Produção)
+  # Backend - (Produção)
   backend-prod:
     <<: *common-backend
     build:
@@ -72,7 +73,7 @@ services:
     profiles:
       - prod
 
-  # Frontend - React (Desenvolvimento)
+  # Frontend - (Desenvolvimento)
   frontend-dev:
     <<: *common-frontend
     build:
@@ -89,7 +90,7 @@ services:
     profiles:
       - dev
 
-  # Frontend - React (Produção)
+  # Frontend - (Produção)
   frontend-prod:
     <<: *common-frontend
     build:
