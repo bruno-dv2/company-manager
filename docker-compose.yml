@@ -40,6 +40,7 @@ services:
     <<: *common-backend
     build:
       context: ./backend
+      target: development
     ports:
       - "${BACKEND_PORT}:3001"
     environment:
@@ -79,6 +80,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      target: development
     ports:
       - "${FRONTEND_PORT}:3000"
     environment:
@@ -86,7 +88,6 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    command: npm start
     profiles:
       - dev
 
